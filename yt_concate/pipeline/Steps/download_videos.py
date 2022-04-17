@@ -1,6 +1,8 @@
 from .step import Step
 
 from pytube import YouTube
+from pytube.exceptions import RegexMatchError
+
 from yt_concate.settings import VIDEOS_DIR
 
 class DownloadVideos(Step):
@@ -16,10 +18,7 @@ class DownloadVideos(Step):
                 continue
 
             print("downloading", url)
-            try:
-                YouTube(url).streams.first().download(output_path = VIDEOS_DIR, filename = yt.id)
-            except :
-                print("error")
+
+            YouTube(url).streams.first().download(output_path = VIDEOS_DIR, filename = yt.id + ".mp4")
 
         return data
-
